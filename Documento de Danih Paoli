@@ -1,0 +1,301 @@
+ programa 
+{ 	
+	cadeia usuario="ninguem"
+	inteiro ano_atual, mes_atual, dia_atual, troco_inicial=0, confirma=0,codigo=0, qtd=0, opcao=0, i=0, j=0, venda[100]
+	inteiro id_produto[50]
+	inteiro cod_produto[50]
+	cadeia nome_produto [50], produtos[50][10]
+	real preco_produto[50], qtd_produto[50],valor_total=0.0, preco[50][10], total_comanda[50]
+	inteiro prox_prod=0, prox_clie=0, indice=0,cod_prod[50]
+
+	funcao inicio () 
+	{
+		escreva("Bem vindo ao sistema\n")
+		escreva("\nQuem está operando?\n")
+		leia(usuario)
+		
+		// configuração do sistema
+		configurar_sistema(usuario)
+		
+		menu_sistema()
+	} 
+
+	funcao vazio configurar_sistema(cadeia operador) 
+	{	
+		inteiro confirma_data=0
+		
+		escreva("\nVamos configurar o configurar sistema")
+		escreva("\nSeja bem-vindo ", operador,"\n")
+		
+		escreva("Que ano estamos?")
+		leia(ano_atual)
+		
+		escreva("Em que mês estamos?\n")
+		leia(mes_atual)
+
+		escreva("Qual o dia atual?\n")
+		leia(dia_atual)
+
+		escreva("\n Você configurou a data como: \n")
+		escreva(dia_atual,"/",mes_atual,"/",ano_atual, "\n")
+
+		escreva("A informação é correta? Digite: \n 1- Sim \t 2- Não \n Esperando o número digita \t")
+		leia(confirma_data)
+
+
+		
+	// registar data em um vetor
+	}
+	funcao vazio menu_sistema() 
+	{
+		inteiro opcao=1
+
+		enquanto (opcao != 7)
+		{
+		
+		escreva("\n Escolha uma das opções a seguir\n")
+		escreva("1) Abrir o caixa\n2) Cadastrar produto \n3) Cadastrar comanda \n4) consultar comanda\n5) Fechar comanda \n6) Fechar dia ")
+		escreva("\n7) Sair do sistema!\n \n")
+		leia(opcao)
+
+		limpa()
+
+		escolha (opcao)	
+		{
+			caso 1: 
+		 		abrir_caixa()
+		 		pare   // Impede que as instruções do caso 2 sejam executadas
+		 	caso 2: 
+		 		cadastrar_produto()
+		 		pare   // Impede que as instruções do caso 2 sejam executadas
+		 	caso 3: 
+		 		cadastrar_comanda()
+		 		pare
+		 	caso 4: 
+		 		consultar_comanda()
+		 		pare
+		 	caso 5: 
+		 		fechar_comanda()
+		 		pare
+			caso 6: 
+		 		fechar_comanda()
+		 		pare
+		 	caso contrario: // Será executado para qualquer opção diferente de 1, 2 ou 3
+		 		escreva ("Opção Inválida !")
+		}
+	}
+	
+	}
+
+	funcao vazio abrir_caixa()
+	{	
+				
+		escreva("Vamos abrir o caixa!\n")
+		escreva("Quanto em dinheiro \n")
+		leia(troco_inicial)
+		escreva("Você abriu o caixa com: R$ ", troco_inicial)
+		escreva("\nConfirma? \t 1- para sim \t 2- para não \n")
+		leia(confirma)
+
+		se(confirma==1)
+		{
+			menu_sistema()
+		}
+		senao 
+		{
+			abrir_caixa()
+		}
+	}
+
+	funcao vazio cadastrar_produto()
+	{	//gravar no vetor na posição
+		//prox_prod=prox_prod+1
+		//grave na posição prox_prod do vetor id_prod[prox_prod]
+		//ler o nome produto e gravar no vetor nome_produto[prox_prod]=leu do teclado
+		//assim como os demais
+
+		escreva("Olá ",  usuario, " cadastre o produto!\n")
+		id_produto[prox_prod]=prox_prod
+		cod_produto[prox_prod]=prox_prod+1
+		nome_produto[prox_prod]=digita_nome()
+		preco_produto[prox_prod]=numero_digitado("o preço:")
+		qtd_produto[prox_prod]=numero_digitado("a quantidade de produtos:")
+
+		prox_prod=prox_prod+1
+ 		
+		menu_sistema()
+	}
+	
+	 funcao vazio cadastrar_comanda()
+	 {
+		escreva("Cadastro de comanda\n")
+		enquanto(opcao!=3)
+		{
+		escreva("1-Continuar\t2-Finalizar\n")
+		leia(opcao)
+		
+				escolha(opcao)
+				{
+					caso 1:
+					escreva("Digite o código do produto:\n")
+		 			leia(codigo)
+		 			codigo=codigo-1
+		 			escreva("\nProduto:\t",nome_produto[codigo])	
+					escreva("\nQuantidade:\t")
+					leia(qtd)
+					valor_total= valor_total + preco_produto[codigo]*qtd
+			
+					produtos[i][j]=nome_produto[codigo]
+					preco[i][j]=preco_produto[codigo]*qtd
+					j++
+					pare
+					caso 2:
+					venda[indice]=indice
+					escreva("-----Venda N° ",venda[indice],"-----\n\n")
+					escreva("\n A data desta comanda e de: \n")
+					//escreva(dia_atual,"/",mes_atual,"/",ano_atual, "\n")	 
+					
+					para (i=0; i!=1 ;i++)
+					{
+						para (j=0; j!=10; j++)
+						{
+							escreva(produtos[i][j],"\t",preco[i][j],"\n")	
+						}
+	
+					}
+					escreva("\nValor total:\t",valor_total)
+					total_comanda[i-1]=valor_total
+					escreva("\nVoltar para o menu inical? \t1)Sim 2)Não\n")
+					leia(confirma)
+					i++
+					se(confirma==1)
+					{
+						menu_sistema()
+					}
+					senao 
+					{
+						consultar_comanda()
+					}
+							
+					pare
+					caso contrario:
+					escreva("número inválido!\n")
+					pare
+				}
+		}
+			
+				
+	 }
+	funcao vazio consultar_comanda()
+	{
+		inteiro numero, consulta
+		logico achou = falso  // Variável para armazenar o resultado da procura
+
+		escreva ("Qual o codigo da comanda você está procurando?\n")
+		leia (numero)
+		numero=numero-1
+
+		para (inteiro posicao = 0; posicao < 5; posicao++)
+		{
+			se (venda[numero] == numero)
+			{
+				escreva("\nProdutos:\tValor:\n")
+				para (numero=0; numero!=1 ;numero++)
+					{
+						para (j=0; j!=10; j++)
+						{
+							escreva(produtos[numero][j],"\t",preco[numero][j],"\n")	
+						}
+						escreva("Valor total:\t",total_comanda[numero],"\n\n")
+						achou = verdadeiro
+					}
+				escreva("Consultar outra comanda-1 \tIr para o o menu inicial-2\n")
+				leia(consulta)
+				se(consulta==1)
+				{
+					consultar_comanda()
+				}
+				se(consulta==2)
+				{
+					menu_sistema()
+				}
+				senao
+				{
+					escreva("Número inválido... Voltando ao menu inicial...")
+					menu_sistema()
+				}
+			}
+		}
+		
+		se (nao achou) 
+		{
+			escreva ("O número não está no vetor\n")
+			escreva("Consultar outra comanda-1 \tIr para o o menu inicial-2\n")
+			leia(consulta)
+			se(consulta==1)
+			{
+				consultar_comanda()
+			}
+			se(consulta==2)
+			{
+				menu_sistema()
+			}
+			senao
+			{
+				escreva("Número inválido... Voltando ao menu inicial...")
+				menu_sistema()
+			}
+		}	
+	}
+	funcao vazio fechar_comanda()
+	{
+		
+		menu_sistema()
+		// digite o codigo da comanda e 
+		// caixa = vlr caixa + vlr comanda
+		
+	}
+	
+
+	funcao cadeia digita_nome()
+	{
+		cadeia nome_dig
+		escreva("Digite o nome: \t")
+		leia(nome_dig)
+		retorne nome_dig
+	}
+
+	funcao real numero_digitado(cadeia enviado)
+	{
+		real valor
+		escreva("Digite ",enviado,"\t")
+		leia(valor)
+		retorne valor
+	}
+
+	funcao vazio imprime_pontos()
+	{
+		inteiro contador=0
+		para (contador=0; contador<75; contador++)
+		{
+			escreva("-.")
+		}
+	}
+	funcao vazio fechar_dia(){
+	escreva("Um dia triste" )
+	menu_sistema()
+	}	
+}
+
+
+/* $$$ Portugol Studio $$$ 
+ * 
+ * Esta seção do arquivo guarda informações do Portugol Studio.
+ * Você pode apagá-la se estiver utilizando outro editor.
+ * 
+ * @POSICAO-CURSOR = 1056; 
+ * @PONTOS-DE-PARADA = ;
+ * @SIMBOLOS-INSPECIONADOS = ;
+ * @FILTRO-ARVORE-TIPOS-DE-DADO = inteiro, real, logico, cadeia, caracter, vazio;
+ * @FILTRO-ARVORE-TIPOS-DE-SIMBOLO = variavel, vetor, matriz, funcao;
+ */
